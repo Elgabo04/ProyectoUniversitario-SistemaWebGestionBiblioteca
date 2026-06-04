@@ -7,21 +7,52 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="container navbar-container">
-            <a class="navbar-brand" href="#">BiblioGestion</a>
-            
-            <div class="navbar-nav">
-                <a href="libros.html" class="nav-link">Catálogo</a>
-                <a href="prestamos.html" class="nav-link active">Mis Préstamos</a>
-            </div>
 
-            <div style="display: flex; gap: 1rem; align-items: center;">
-                <button class="btn btn-danger btn-small">Cerrar Sesión</button>
-            </div>
-        </div>
-    </nav>
+    <h1>Mis Préstamos</h1>
+
+    <!-- Formulario para registrar un nuevo prestamo -->
+    <section>
+        <h2>Nuevo préstamo</h2>
+        <form id="formPrestamo">
+            <label>Usuario:
+                <select id="usuarioSelect" required>
+                    <option value="">Cargando usuarios...</option>
+                </select>
+            </label>
+            <br>
+            <label>Libro:
+                <select id="libroSelect" required>
+                    <option value="">Cargar libros...</option>
+                </select>
+            </label>
+            <br>
+            <label>Fecha devolución (opcional):
+                <input type="date" id="fechaDevolucion">
+            </label>
+            <br>
+            <button type="submit">Registrar préstamo</button>
+        </form>
+    </section>
+
+    <hr>
+
+    <!-- Tabla interactiva de prestamos -->
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Usuario ID</th>
+                <th>Libro ID</th>
+                <th>Fecha Préstamo</th>
+                <th>Fecha Devolución</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="tablaPrestamos">
+
+        </tbody>
+    </table>
 
     <!-- Contenido Principal -->
     <div class="container" style="margin-top: 2rem; margin-bottom: 2rem;">
