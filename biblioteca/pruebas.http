@@ -1,0 +1,37 @@
+### Variable para la URL base de tu API
+@url = http://localhost:3000/api/usuarios
+
+### 1. PROBAR CREAR UN ADMINISTRADOR (POST)
+POST {{url}}/auth/add-admin
+Content-Type: application/json
+
+{
+  "nombre": "Gosu Admin",
+  "email": "admin@mail.com",
+  "password": "password123"
+}
+
+### 2. PROBAR OBTENER TODOS LOS USUARIOS (GET)
+GET {{url}}/get-users
+
+### 3. PROBAR ACTUALIZAR UN USUARIO POR COMPLETO (PUT)
+### NOTA: Si el ID de tu primer usuario no es 1, cambia el número al final
+PUT {{url}}/update-user/1
+Content-Type: application/json
+
+{
+  "nombre": "Administrador Modificado",
+  "email": "admin_nuevo@mail.com",
+  "rol": "admin"
+}
+
+### 4. PROBAR PARCHAR UN USUARIO (PATCH)
+PATCH {{url}}/patch-user/1
+Content-Type: application/json
+
+{
+  "nombre": "Solo Cambié El Nombre"
+}
+
+### 5. PROBAR ELIMINAR UN USUARIO (DELETE)
+DELETE {{url}}/delete-user/1
