@@ -1,1 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Administrador</title>
+</head>
+<body>
 
+    <h1>Panel Administrador</h1>
+
+    <hr>
+
+    <h2>Gestión de Libros</h2>
+
+    <button type="button">
+        Nuevo Libro
+    </button>
+
+    <table border="1">
+
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Autor</th>
+                <th>Categoría</th>
+                <th>Stock</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+
+        <tbody id="tablaLibrosAdmin">
+            
+        </tbody>
+
+    </table>
+
+    <hr>
+
+    <h2>Gestión de Usuarios</h2>
+
+    <table border="1">
+
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Rol</th>
+            </tr>
+        </thead>
+
+        <tbody id="tablaUsuarios">
+           
+        </tbody>
+
+    </table>
+
+    <hr>
+
+    <h2>Gestión de Préstamos</h2>
+
+    <table border="1">
+
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Usuario</th>
+                <th>Libro</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+
+        <tbody id="tablaPrestamosAdmin">
+           
+        </tbody>
+
+    </table>
+
+    <script src="js/app.js"></script>
+
+</body>
+</html>
