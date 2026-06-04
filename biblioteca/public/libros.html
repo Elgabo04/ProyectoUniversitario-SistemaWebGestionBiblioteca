@@ -3,52 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catálogo de Libros</title>
+    <title>Catálogo de Libros - BiblioGestion</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-
-    <h1>Catálogo de Libros</h1>
-
-    <input type="text" id="buscarLibro" placeholder="Buscar libro">
-
-    <button type="button">
-        Buscar
-    </button>
-
-    <br><br>
-
-    <table border="1">
-
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Título</th>
-                <th>Autor</th>
-                <th>Categoría</th>
-                <th>Stock</th>
-                <th>Acción</th>
-            </tr>
-        </thead>
-
-        <tbody id="tablaLibros">
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container navbar-container">
+            <a class="navbar-brand" href="#">BiblioGestion</a>
             
-        </tbody>
+            <div class="navbar-nav">
+                <a href="libros.html" class="nav-link active">Catálogo</a>
+                <a href="prestamos.html" class="nav-link">Mis Préstamos</a>
+            </div>
 
-    </table>
+            <div style="display: flex; gap: 1rem; align-items: center;">
+                <button class="btn btn-danger btn-small">Cerrar Sesión</button>
+            </div>
+        </div>
+    </nav>
 
-    <br>
+    <!-- Contenido Principal -->
+    <div class="container" style="margin-top: 2rem; margin-bottom: 2rem;">
+        <!-- Header -->
+        <div class="page-header">
+            <h2>Catálogo de Libros</h2>
+        </div>
 
-    <a href="prestamos.html">
-        Mis Préstamos
-    </a>
+        <!-- Búsqueda y Filtros -->
+        <div class="search-filter-bar">
+            <div style="display: flex; gap: 0.5rem;">
+                <input 
+                    type="text" 
+                    id="buscarLibro"
+                    style="flex: 1;"
+                >
+            </div>
+            <button class="btn btn-primary" id="btnBuscar">Buscar</button>
+            <button class="btn btn-light">+ Nuevo Libro</button>
+        </div>
 
-    <br><br>
+        <!-- Tabla de Libros -->
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Título</th>
+                        <th>Autor</th>
+                        <th>Categoría</th>
+                        <th>Cantidad</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaLibros">
+                </tbody>
+            </table>
+        </div>
 
-    <a href="login.html">
-        Cerrar Sesión
-    </a>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 Sistema de Gestión de Biblioteca.</p>
+    </footer>
 
     <script src="js/app.js"></script>
-
 </body>
 </html>

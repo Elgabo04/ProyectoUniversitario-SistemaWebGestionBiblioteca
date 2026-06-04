@@ -3,83 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel Administrador</title>
+    <title>Panel de Administrador - BiblioGestion</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-
-    <h1>Panel Administrador</h1>
-
-    <hr>
-
-    <h2>Gestión de Libros</h2>
-
-    <button type="button">
-        Nuevo Libro
-    </button>
-
-    <table border="1">
-
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Título</th>
-                <th>Autor</th>
-                <th>Categoría</th>
-                <th>Stock</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-
-        <tbody id="tablaLibrosAdmin">
+    <!-- Navbar -->
+    <nav class="navbar navbar-dark" style="background-color: var(--primary-color);">
+        <div class="container navbar-container">
+            <a class="navbar-brand" href="#">BiblioGestion</a>
             
-        </tbody>
+            <button class="btn btn-danger btn-small">Cerrar Sesión</button>
+        </div>
+    </nav>
 
-    </table>
+    <!-- Contenido Principal -->
+    <div class="container" style="margin-top: 2rem; margin-bottom: 2rem;">
+        <!-- Header -->
+        <h1 style="margin-bottom: 2rem;">Panel de Administrador</h1>
 
-    <hr>
+        <!-- Tabs de Gestión -->
+        <div class="tabs">
+            <button class="tab active" data-tab="libros">Gestión de Libros</button>
+            <button class="tab" data-tab="usuarios">Gestión de Usuarios</button>
+            <button class="tab" data-tab="prestamos">Gestión de Préstamos</button>
+        </div>
 
-    <h2>Gestión de Usuarios</h2>
+        <!-- Tab: Gestión de Libros -->
+        <div id="libros" class="tab-content" style="display: block;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h3>Inventario de Libros</h3>
+                <button class="btn btn-success">+ Nuevo Libro</button>
+            </div>
 
-    <table border="1">
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Título</th>
+                            <th>Autor</th>
+                            <th>Categoría</th>
+                            <th>Cantidad</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaLibrosAdmin">
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Correo</th>
-                <th>Rol</th>
-            </tr>
-        </thead>
+        <!-- Tab: Gestión de Usuarios -->
+        <div id="usuarios" class="tab-content" style="display: none;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h3>Gestión de Usuarios</h3>
+                <button class="btn btn-success">+ Nuevo Usuario</button>
+            </div>
 
-        <tbody id="tablaUsuarios">
-           
-        </tbody>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Correo</th>
+                            <th>Rol</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaUsuarios">
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-    </table>
+        <!-- Tab: Gestión de Préstamos -->
+        <div id="prestamos" class="tab-content" style="display: none;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h3>Gestión de Préstamos</h3>
+                <button class="btn btn-success">+ Nuevo Préstamo</button>
+            </div>
 
-    <hr>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Usuario ID</th>
+                            <th>Libro ID</th>
+                            <th>Fecha Préstamo</th>
+                            <th>Fecha Devolución</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaPrestamosAdmin">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
-    <h2>Gestión de Préstamos</h2>
-
-    <table border="1">
-
-        <thead>
-            <tr>
-                <th>Código</th>
-                <th>Usuario</th>
-                <th>Libro</th>
-                <th>Estado</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-
-        <tbody id="tablaPrestamosAdmin">
-           
-        </tbody>
-
-    </table>
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 Sistema de Gestión de Biblioteca.</p>
+    </footer>
 
     <script src="js/app.js"></script>
-
 </body>
 </html>

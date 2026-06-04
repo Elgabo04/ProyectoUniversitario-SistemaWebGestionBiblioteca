@@ -3,37 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mis Préstamos</title>
+    <title>Mis Préstamos - BiblioGestion</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-
-    <h1>Mis Préstamos</h1>
-
-    <table border="1">
-
-        <thead>
-            <tr>
-                <th>Código</th>
-                <th>Libro</th>
-                <th>Fecha Préstamo</th>
-                <th>Fecha Devolución</th>
-                <th>Estado</th>
-            </tr>
-        </thead>
-
-        <tbody id="tablaPrestamos">
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container navbar-container">
+            <a class="navbar-brand" href="#">BiblioGestion</a>
             
-        </tbody>
+            <div class="navbar-nav">
+                <a href="libros.html" class="nav-link">Catálogo</a>
+                <a href="prestamos.html" class="nav-link active">Mis Préstamos</a>
+            </div>
 
-    </table>
+            <div style="display: flex; gap: 1rem; align-items: center;">
+                <button class="btn btn-danger btn-small">Cerrar Sesión</button>
+            </div>
+        </div>
+    </nav>
 
-    <br>
+    <!-- Contenido Principal -->
+    <div class="container" style="margin-top: 2rem; margin-bottom: 2rem;">
+        <!-- Header -->
+        <h2>Mis Préstamos</h2>
 
-    <a href="libros.html">
-        Volver al Catálogo
-    </a>
+        <!-- Tabla de Préstamos -->
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Usuario ID</th>
+                        <th>Libro ID</th>
+                        <th>Fecha Préstamo</th>
+                        <th>Fecha Devolución</th>
+                        <th>Estado</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaPrestamos">
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 Sistema de Gestión de Biblioteca.</p>
+    </footer>
 
     <script src="js/app.js"></script>
-
 </body>
 </html>
