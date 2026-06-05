@@ -8,7 +8,7 @@ Content-Type: application/json
 {
   "nombre": "Gosu Admin",
   "email": "admin@mail.com",
-  "password": "password123"
+  "password": "password1234"
 }
 
 ### 2. PROBAR OBTENER TODOS LOS USUARIOS (GET)
@@ -44,8 +44,8 @@ POST http://localhost:3000/api/auth/register
 Content-Type: application/json
 
 {
-  "nombre": "Nuevo Usuario 2",
-  "email": "usuario2@mail.com",
+  "nombre": "Nuevo Usuario",
+  "email": "usuario@mail.com",
   "password": "password123"
 }
 
@@ -112,8 +112,8 @@ POST http://localhost:3000/api/prestamos/create
 Content-Type: application/json
 
 {
-  "usuario_id": 3,
-  "libro_id": 7,
+  "usuario_id": 1,
+  "libro_id": 1,
   "fecha_devolucion": "2026-06-15"
 }
 
@@ -124,3 +124,61 @@ POST http://localhost:3000/api/prestamos/devolver/1
 ### PROBAR LISTAR PRÉSTAMOS POR USUARIO (GET)
 ### NOTA: Cambia el ID de usuario al final para ver su historial de préstamos
 GET http://localhost:3000/api/prestamos/user/3
+
+
+
+
+###PROBAR CON TOKEN DE AUTH EL CRUD USUARIOS
+### 1. INICIAR SESIÓN COMO ADMINISTRADOR (POST)
+# @name loginAdmin
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "usuario2@mail.com",
+  "password": "password123"
+}
+
+### Guardamos el token de la respuesta automáticamente
+@tokenAdmin = {{loginAdmin.response.body.token}}
+
+
+### 2. PROBAR CREAR UN NUEVO ADMINISTRADOR - PROTEGIDO (POST)
+POST http://localhost:3000/api/usuarios/auth/add-admin
+Authorization: Bearer {{tokenAdmin}}
+Content-Type: application/json
+
+{
+  "nombre": "Gosu Admin Dos",
+  "email": "admin2@mail.com",
+  "password": "password123"
+}
+
+### 3. PROBAR OBTENER TODOS LOS USUARIOS - PROTEGIDO (GET)
+GET http://localhost:3000/api/usuarios/get-users
+Authorization: Bearer {{tokenAdmin}}
+
+### 4. PROBAR ACTUALIZAR UN USUARIO - PROTEGIDO (PUT)
+### NOTA: Cambia el ID 2 al final por uno real si es necesario
+PUT http://localhost:3000/api/usuarios/update-user/6
+Authorization: Bearer {{tokenAdmin}}
+Content-Type: application/json
+
+{
+  "nombre": "Administrador Modificado",
+  "email": "admin_nuevo@mail.com",
+  "rol": "admin"
+}
+
+### 5. PROBAR PARCHAR UN USUARIO - PROTEGIDO (PATCH)
+PATCH http://localhost:3000/api/usuarios/patch-user/6
+Authorization: Bearer {{tokenAdmin}}
+Content-Type: application/json
+
+{
+  "nombre": "Solo Cambié El Nombre"
+}
+
+### 6. PROBAR ELIMINAR UN USUARIO - PROTEGIDO (DELETE)
+DELETE http://localhost:3000/api/usuarios/delete-user/1
+Authorization: Bearer {{tokenAdmin}}

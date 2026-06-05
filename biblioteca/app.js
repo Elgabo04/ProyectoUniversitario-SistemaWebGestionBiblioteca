@@ -1,6 +1,6 @@
 import express from "express";
 import sequelize from "./config/database.js";
-
+import "./models/relaciones.js";
 
 //rutas
 import rutasUsuario from "./routes/usuarioRoutes.js";

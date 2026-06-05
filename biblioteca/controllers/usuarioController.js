@@ -1,5 +1,5 @@
 import Usuario from "../models/Usuario.js";
-
+import { hashPassword } from "../utils/hashPassword.js";
 
 export const listarUsuarios = async (req, res) => {
     try {
@@ -14,11 +14,21 @@ export const listarUsuarios = async (req, res) => {
 
 export const crearUsuario = async (req, res) => {
     try {
-        const { nombre, email, password, rol } = req.body;
+        const { nombre, email, password } = req.body;
+        
+        const usuarioExiste = await Usuario.findOne({ where: { email } });
+        if (usuarioExiste) {
+            return res.status(400).json({ error: "El correo electrónico ya está registrado" });
+        }
+
+
+        // Hash de contraseña antes de crear el registro
+        const hashedPassword = await hashPassword(password);
+
         const nuevoUsuario = await Usuario.create({
             nombre,
             email,
-            password, //se debe hashear con la funcion que sandra haga
+            password: hashedPassword, //  contraseña encriptada
             rol: "admin"
         });
         const usuarioSinPassword = nuevoUsuario.toJSON();
