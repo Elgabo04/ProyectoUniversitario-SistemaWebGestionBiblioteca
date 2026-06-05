@@ -5,6 +5,7 @@ import Prestamo from "../models/Prestamo.js";
 import Usuario from "../models/Usuario.js";
 import Libro from "../models/Libro.js";
 import { Op } from "sequelize";
+import crypto from "crypto";
 
 // Lista todos los prestamos
 export const listarPrestamos = async (req, res) => {
