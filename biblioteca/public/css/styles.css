@@ -1277,3 +1277,39 @@ footer {
         font-size: 0.8125rem;
     }
 }
+
+
+/* Para los botones de acción en la tabla de préstamos */
+.actions-cell {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* Asegurar que los botons pequeños se vean bien */
+.btn-sm {
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+}
+
+/* Colores específicos para badges */
+.badge-warning {
+    background-color: #f59e0b;
+    color: white;
+}
+
+.badge-info {
+    background-color: #3b82f6;
+    color: white;
+}
+
+.badge-success {
+    background-color: #10b981;
+    color: white;
+}
+
+.badge-purple {
+    background-color: #8b5cf6;
+    color: white;
+}

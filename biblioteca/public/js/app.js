@@ -426,7 +426,7 @@ window.solicitarPrestamo = async function(libroId, titulo) {
             return;
         }
 
-        mostrarToast('¡Préstamo registrado exitosamente!', 'success');
+        mostrarToast('¡Préstamo solicitado exitosamente! Queda pendiente de aprobación.', 'success');
         cargarCatalogo();
 
     } catch (error) {
@@ -506,7 +506,8 @@ async function cargarMisPrestamos() {
                 <tr><td colspan="5" class="table-empty">
                     <div class="table-empty-icon">📋</div>
                     <p>Aún no tienes préstamos. ¡Explora el <a href="libros.html">catálogo</a>!</p>
-                </td></tr>`;
+                </td>
+                </tr>`;
             return;
         }
 
@@ -656,8 +657,8 @@ async function cargarLibrosAdmin() {
                         <button class="btn btn-warning btn-sm" onclick="abrirModalLibro(${l.id})">✏️</button>
                         <button class="btn btn-danger btn-sm" onclick="eliminarLibro(${l.id}, '${escapeHtml(l.titulo)}')">🗑️</button>
                     </div>
-                </td>
-            </tr>
+                 </td>
+             </tr>
         `).join('');
     } catch (error) {
         console.error(error);
@@ -787,13 +788,13 @@ async function cargarUsuariosAdmin() {
                         <button class="btn btn-warning btn-sm" onclick="abrirModalUsuarioEditar(${u.id})">✏️</button>
                         <button class="btn btn-danger btn-sm" onclick="eliminarUsuario(${u.id}, '${escapeHtml(u.nombre)}')">🗑️</button>
                     </div>
-                </td>
-            </tr>
+                 </td>
+             </tr>
         `).join('');
 
     } catch (error) {
         console.error(error);
-        tabla.innerHTML = '<tr><td colspan="5" class="table-empty"><p>❌ Error al cargar usuarios</p></td></tr>';
+        tabla.innerHTML = '<table><td colspan="5" class="table-empty"><p>❌ Error al cargar usuarios</p></td></tr>';
     }
 }
 
@@ -955,21 +956,37 @@ async function cargarPrestamosAdmin() {
             return;
         }
 
-        tabla.innerHTML = prestamos.map(p => `
-            <tr>
-                <td><strong>#${p.id}</strong></td>
-                <td>${escapeHtml(usuariosMap[p.usuario_id] || `#${p.usuario_id}`)}</td>
-                <td>${escapeHtml(librosMap[p.libro_id] || `#${p.libro_id}`)}</td>
-                <td>${formatFecha(p.fecha_prestamo)}</td>
-                <td>${formatFecha(p.fecha_devolucion)}</td>
-                <td>${badgeEstado(p.estado)}</td>
-                <td>
-                    ${p.estado !== 'devuelto' 
-                        ? `<button class="btn btn-success btn-sm" onclick="devolverPrestamo(${p.id})">✅ Devolver</button>` 
-                        : '<span class="text-muted text-sm">Completado</span>'}
-                </td>
-            </tr>
-        `).join('');
+        tabla.innerHTML = prestamos.map(p => {
+            // Determinar qué botones mostrar según el estado
+            let acciones = '';
+            if (p.estado === 'pendiente') {
+                acciones = `
+                    <div class="actions-cell">
+                        <button class="btn btn-primary btn-sm" onclick="aprobarPrestamo(${p.id})">✓ Aprobar</button>
+                    </div>
+                `;
+            } else if (p.estado === 'prestado') {
+                acciones = `
+                    <div class="actions-cell">
+                        <button class="btn btn-success btn-sm" onclick="devolverPrestamo(${p.id})">✅ Devolver</button>
+                    </div>
+                `;
+            } else {
+                acciones = '<span class="text-muted text-sm">Completado</span>';
+            }
+
+            return `
+                <tr>
+                    <td><strong>#${p.id}</strong></td>
+                    <td>${escapeHtml(usuariosMap[p.usuario_id] || `#${p.usuario_id}`)}</td>
+                    <td>${escapeHtml(librosMap[p.libro_id] || `#${p.libro_id}`)}</td>
+                    <td>${formatFecha(p.fecha_prestamo)}</td>
+                    <td>${formatFecha(p.fecha_devolucion)}</td>
+                    <td>${badgeEstado(p.estado)}</td>
+                    <td>${acciones}</td>
+                </tr>
+            `;
+        }).join('');
 
     } catch (error) {
         console.error(error);
@@ -977,6 +994,32 @@ async function cargarPrestamosAdmin() {
     }
 }
 
+// Aprobar préstamo (admin)
+window.aprobarPrestamo = async function(id) {
+    if (!confirm('¿Aprobar este préstamo? El libro será prestado al usuario.')) return;
+
+    try {
+        const res = await fetchAuth(`/api/prestamos/aprobar/${id}`, { 
+            method: 'PUT'
+        });
+
+        if (!res.ok) {
+            const err = await res.json();
+            mostrarToast(err.error || 'Error al aprobar préstamo', 'error');
+            return;
+        }
+
+        mostrarToast('Préstamo aprobado exitosamente', 'success');
+        cargarPrestamosAdmin();
+        cargarAdminStats();
+
+    } catch (error) {
+        console.error(error);
+        mostrarToast('Error de conexión', 'error');
+    }
+};
+
+// Devolver préstamo (admin)
 window.devolverPrestamo = async function(id) {
     if (!confirm('¿Registrar la devolución de este préstamo?')) return;
 
