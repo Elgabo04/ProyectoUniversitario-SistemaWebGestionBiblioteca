@@ -3,6 +3,7 @@ import {
 	listarPrestamos,
 	crearPrestamo,
 	devolverPrestamo,
+	aprobarPrestamo,
 	listarPrestamosPorUsuario
 } from "../controllers/prestamoController.js";
 
@@ -16,9 +17,14 @@ rutasPrestamo.get("/get-prestamos", verificarToken, esAdmin, async (req, res) =>
 	await listarPrestamos(req, res);
 });
 
-// Crear préstamo (usuario autenticado)
+// Crear préstamo (usuario autenticado) - estado: pendiente
 rutasPrestamo.post("/create", verificarToken, async (req, res) => {
 	await crearPrestamo(req, res);
+});
+
+// Aprobar préstamo - cambiar de pendiente a prestado (solo admin)
+rutasPrestamo.put("/aprobar/:id", verificarToken, esAdmin, async (req, res) => {
+	await aprobarPrestamo(req, res);
 });
 
 // Marcar devolución (solo admin)

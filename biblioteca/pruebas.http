@@ -1,101 +1,130 @@
 ### Variable para la URL base de tu API
 @url = http://localhost:3000/api/usuarios
+@urlAuth = http://localhost:3000/api/auth
+@urlLibros = http://localhost:3000/api/libros
+@urlPrestamos = http://localhost:3000/api/prestamos
 
-### 1. PROBAR CREAR UN ADMINISTRADOR (POST)
-POST {{url}}/auth/add-admin
+### ============ PRUEBAS COMPLETAS DEL FLUJO ============
+
+### 1. REGISTRO DE USUARIO NORMAL
+POST {{urlAuth}}/register
 Content-Type: application/json
 
 {
-  "nombre": "Gosu Admin",
-  "email": "admin@mail.com",
-  "password": "password1234"
+  "nombre": "Juan Pérez",
+  "email": "juan@mail.com",
+  "password": "password123",
+  "rol": "usuario"
 }
 
-### 2. PROBAR OBTENER TODOS LOS USUARIOS (GET)
-GET {{url}}/get-users
-
-### 3. PROBAR ACTUALIZAR UN USUARIO POR COMPLETO (PUT)
-### NOTA: Si el ID de tu primer usuario no es 1, cambia el número al final
-PUT {{url}}/update-user/2
+### 2. REGISTRO DE ADMINISTRADOR
+POST {{urlAuth}}/register
 Content-Type: application/json
 
 {
-  "nombre": "Administrador Modificado",
-  "email": "admin_nuevo@mail.com",
+  "nombre": "Carlos Admin",
+  "email": "admin@mail.com",
+  "password": "admin123",
   "rol": "admin"
 }
 
-### 4. PROBAR PARCHAR UN USUARIO (PATCH)
-PATCH {{url}}/patch-user/2
+### 3. LOGIN - USUARIO NORMAL
+POST {{urlAuth}}/login
 Content-Type: application/json
 
 {
-  "nombre": "Solo Cambié El Nombre"
-}
-
-### 5. PROBAR ELIMINAR UN USUARIO (DELETE)
-DELETE {{url}}/delete-user/2
-
-
-
-### PRUEBAS SANDRA
-### 6. PROBAR REGISTRO DE USUARIO NUEVO (POST) 
-POST http://localhost:3000/api/auth/register
-Content-Type: application/json
-
-{
-  "nombre": "Nuevo Usuario",
-  "email": "usuario@mail.com",
+  "email": "juan@mail.com",
   "password": "password123"
 }
 
-###
-
-### 7. PROBAR INICIO DE SESIÓN / LOGIN (POST)
-POST http://localhost:3000/api/auth/login
+### 4. LOGIN - ADMINISTRADOR
+POST {{urlAuth}}/login
 Content-Type: application/json
 
 {
-  "email": "usuario@mail.com",
-  "password": "password123"
+  "email": "admin@mail.com",
+  "password": "admin123"
 }
 
+### ============ PRUEBAS DE LIBROS ============
 
-### PRUEBAS ANTHONY
-### PROBAR CREAR UN LIBRO (POST)
-POST http://localhost:3000/api/libros/
+### 5. CREAR UN LIBRO (con token de admin)
+POST {{urlLibros}}
 Content-Type: application/json
+Authorization: Bearer TOKEN_ADMIN_AQUI
 
 {
-  "titulo": "Cien años de soledad",
-  "autor": "Gabriel García Márquez",
-  "categoria": "Realismo Mágico",
+  "titulo": "Don Quijote",
+  "autor": "Miguel de Cervantes",
+  "categoria": "Clásico",
   "cantidad": 5
 }
 
-### PROBAR OBTENER TODOS LOS LIBROS (GET)
-GET http://localhost:3000/api/libros/
+### 6. OBTENER TODOS LOS LIBROS
+GET {{urlLibros}}
 
-### PROBAR FILTRAR LIBROS POR TÍTULO (GET)
-GET http://localhost:3000/api/libros/?titulo=Cien
+### 7. FILTRAR LIBROS POR TÍTULO
+GET {{urlLibros}}?titulo=Don
 
-### PROBAR OBTENER TODOS LOS LIBROS - RUTA ALTERNATIVA (GET)
-GET http://localhost:3000/api/libros/get-books
+### ============ PRUEBAS DE PRÉSTAMOS ============
 
-### PROBAR ACTUALIZAR UN LIBRO (PUT)
-### NOTA: Si el ID de tu primer libro no es 1, cambia el número al final
-PUT http://localhost:3000/api/libros/6
+### 8. CREAR SOLICITUD DE PRÉSTAMO (estado: pendiente)
+POST {{urlPrestamos}}/create
 Content-Type: application/json
+Authorization: Bearer TOKEN_USUARIO_AQUI
 
 {
-  "titulo": "Cien años de soledad - Edición Especial",
-  "autor": "Gabriel García Márquez",
-  "categoria": "Novela",
-  "cantidad": 10
+  "usuario_id": 1,
+  "libro_id": 1,
+  "fecha_devolucion": null
 }
 
-### PROBAR ELIMINAR UN LIBRO (DELETE)
-DELETE http://localhost:3000/api/libros/6
+### 9. VER TODOS LOS PRÉSTAMOS (solo admin)
+GET {{urlPrestamos}}/get-prestamos
+Authorization: Bearer TOKEN_ADMIN_AQUI
+
+### 10. VER PRÉSTAMOS DE UN USUARIO
+GET {{urlPrestamos}}/user/1
+Authorization: Bearer TOKEN_USUARIO_AQUI
+
+### 11. APROBAR PRÉSTAMO (estado: pendiente → prestado, decrementa stock)
+PUT {{urlPrestamos}}/aprobar/1
+Authorization: Bearer TOKEN_ADMIN_AQUI
+
+### 12. VERIFICAR STOCK DEL LIBRO (debe haber disminuido)
+GET {{urlLibros}}
+
+### 13. REGISTRAR DEVOLUCIÓN (estado: prestado → devuelto, incrementa stock)
+POST {{urlPrestamos}}/devolver/1
+Authorization: Bearer TOKEN_ADMIN_AQUI
+
+### 14. VERIFICAR STOCK NUEVAMENTE (debe haber aumentado)
+GET {{urlLibros}}
+
+### ============ PRUEBAS ADICIONALES ============
+
+### 15. OBTENER TODOS LOS USUARIOS
+GET {{url}}/get-users
+Authorization: Bearer TOKEN_ADMIN_AQUI
+
+### 16. ACTUALIZAR UN USUARIO
+PUT {{url}}/update-user/1
+Content-Type: application/json
+Authorization: Bearer TOKEN_ADMIN_AQUI
+
+{
+  "nombre": "Juan Pérez Actualizado",
+  "email": "juan_nuevo@mail.com",
+  "rol": "usuario"
+}
+
+### 17. ELIMINAR UN LIBRO
+DELETE {{urlLibros}}/1
+Authorization: Bearer TOKEN_ADMIN_AQUI
+
+### 18. ELIMINAR UN USUARIO
+DELETE {{url}}/delete-user/1
+Authorization: Bearer TOKEN_ADMIN_AQUI
 
 
 

@@ -1,12 +1,19 @@
 
 import { Sequelize } from "sequelize";
+import dotenv from "dotenv";
 
-const sequelize = new Sequelize("biblioteca-desarrollo-app-web-pa1c2", "root", "", {
-    host: "localhost",
-    dialect: "mysql",
-    port: 3306,
-    logging: false
-});
+dotenv.config();
 
+const sequelize = new Sequelize(
+    process.env.DB_NAME || "biblioteca",
+    process.env.DB_USER || "root",
+    process.env.DB_PASSWORD || "",
+    {
+        host: process.env.DB_HOST || "localhost",
+        dialect: "mysql",
+        port: 3306,
+        logging: false
+    }
+);
 
 export default sequelize;
