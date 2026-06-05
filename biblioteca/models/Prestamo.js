@@ -11,6 +11,17 @@ const Prestamo = sequelize.define("Prestamo", {
 		type: DataTypes.INTEGER,
 		allowNull: false
 	},
+
+	
+	
+	codigo: {
+		type: DataTypes.STRING,
+		allowNull: false,
+		unique: true
+	},
+
+
+
 	libro_id: {
 		type: DataTypes.INTEGER,
 		allowNull: false

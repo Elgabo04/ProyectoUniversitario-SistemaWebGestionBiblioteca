@@ -1,3 +1,6 @@
+import crypto from "crypto";
+
+
 import Prestamo from "../models/Prestamo.js";
 import Usuario from "../models/Usuario.js";
 import Libro from "../models/Libro.js";
@@ -51,9 +54,12 @@ export const crearPrestamo = async (req, res) => {
 			return res.status(400).json({ error: "Ya tienes un préstamo activo de este libro" });
 		}
 
+		const codigo = crypto.randomBytes(4).toString("hex").toUpperCase();
+
 		const nuevo = await Prestamo.create({
 			usuario_id,
 			libro_id,
+			codigo,
 			fecha_prestamo: new Date(),
 			fecha_devolucion: fecha_devolucion || null,
 			estado: "pendiente"
