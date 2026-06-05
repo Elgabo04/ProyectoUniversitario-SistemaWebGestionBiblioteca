@@ -1,6 +1,6 @@
 import express from "express";
 import sequelize from "./config/database.js";
-
+import rutasLibro from "./routes/libroRoutes.js";
 
 //rutas
 import rutasUsuario from "./routes/usuarioRoutes.js";
@@ -17,6 +17,7 @@ aplicacion.use(express.static("public"));
 
 //rutas
 aplicacion.use("/api/usuarios", rutasUsuario);
+aplicacion.use("/api/libros", rutasLibro);
 
 const PORT = process.env.PORT || 3000; //el puerto por defecto es 3000, pero se puede configurar con la variable de entorno PORT
 
