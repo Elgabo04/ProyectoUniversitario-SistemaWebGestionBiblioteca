@@ -3,71 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catálogo de Libros - BiblioGestion</title>
+    <meta name="description" content="Catálogo de libros disponibles - BiblioGestion">
+    <title>Catálogo - BiblioGestion</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <!-- Navbar -->
     <nav class="navbar">
-        <div class="container navbar-container">
-            <a class="navbar-brand" href="#">BiblioGestion</a>
+        <div class="navbar-inner">
+            <a class="navbar-brand" href="libros.html">
+                <span class="navbar-brand-icon">B</span>
+                BiblioGestion
+            </a>
             
             <div class="navbar-nav">
-                <a href="libros.html" class="nav-link active">Catálogo</a>
-                <a href="prestamos.html" class="nav-link">Mis Préstamos</a>
+                <a href="libros.html" class="nav-link active">📚 Catálogo</a>
+                <a href="prestamos.html" class="nav-link">📋 Mis Préstamos</a>
             </div>
 
-            <div style="display: flex; gap: 1rem; align-items: center;">
-                <button class="btn btn-danger btn-small">Cerrar Sesión</button>
+            <div class="navbar-right">
+                <div class="navbar-user">
+                    <span class="navbar-user-avatar" id="userAvatar"></span>
+                    <span id="userName"></span>
+                </div>
+                <button class="btn btn-danger btn-sm" id="btnLogout">Cerrar Sesión</button>
             </div>
         </div>
     </nav>
 
     <!-- Contenido Principal -->
-    <div class="container" style="margin-top: 2rem; margin-bottom: 2rem;">
-        <!-- Header -->
+    <div class="container page-wrapper">
         <div class="page-header">
-            <h2>Catálogo de Libros</h2>
+            <h1>📚 Catálogo de Libros</h1>
+            <p>Explora nuestro catálogo y solicita préstamos de los libros disponibles</p>
         </div>
 
-        <!-- Búsqueda y Filtros -->
-        <div class="search-filter-bar">
-            <div style="display: flex; gap: 0.5rem;">
-                <input 
-                    type="text" 
-                    id="buscarLibro"
-                    style="flex: 1;"
-                >
-            </div>
-            <button class="btn btn-primary" id="btnBuscar">Buscar</button>
-            <button class="btn btn-light">+ Nuevo Libro</button>
+        <!-- Búsqueda -->
+        <div class="search-bar">
+            <input 
+                type="search" 
+                id="inputBuscar"
+                placeholder="Buscar por título de libro..."
+            >
+            <button class="btn btn-primary" id="btnBuscar">🔍 Buscar</button>
+            <button class="btn btn-light" id="btnLimpiar">Limpiar</button>
         </div>
 
-        <!-- Tabla de Libros -->
-        <div class="table-wrapper">
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Título</th>
-                        <th>Autor</th>
-                        <th>Categoría</th>
-                        <th>Cantidad</th>
-                        <th>Acción</th>
-                    </tr>
-                </thead>
-                <tbody id="tablaLibros">
-                </tbody>
-            </table>
+        <!-- Grid de Libros -->
+        <div class="books-grid" id="librosGrid">
+            <!-- Se llena dinámicamente -->
         </div>
 
+        <!-- Estado vacío -->
+        <div id="estadoVacio" class="table-empty hidden">
+            <div class="table-empty-icon">📖</div>
+            <p>No se encontraron libros</p>
+        </div>
     </div>
 
     <!-- Footer -->
     <footer>
-        <p>© 2026 Sistema de Gestión de Biblioteca.</p>
+        <p>© 2026 BiblioGestion — Sistema de Gestión de Biblioteca</p>
     </footer>
 
+    <div id="toastContainer" class="toast-container"></div>
     <script src="js/app.js"></script>
 </body>
 </html>

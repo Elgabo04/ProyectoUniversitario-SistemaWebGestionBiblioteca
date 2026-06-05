@@ -3,112 +3,246 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Administrador - BiblioGestion</title>
+    <meta name="description" content="Panel de Administración - BiblioGestion">
+    <title>Panel Admin - BiblioGestion</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-dark" style="background-color: var(--primary-color);">
-        <div class="container navbar-container">
-            <a class="navbar-brand" href="#">BiblioGestion</a>
+    <!-- Navbar Admin -->
+    <nav class="navbar" style="border-bottom-color: var(--primary);">
+        <div class="navbar-inner">
+            <a class="navbar-brand" href="admin.html">
+                <span class="navbar-brand-icon">B</span>
+                BiblioGestion
+            </a>
             
-            <button class="btn btn-danger btn-small">Cerrar Sesión</button>
+            <div class="navbar-nav">
+                <span class="badge badge-purple" style="font-size: 0.75rem;">⚙️ Panel Admin</span>
+            </div>
+
+            <div class="navbar-right">
+                <div class="navbar-user">
+                    <span class="navbar-user-avatar" id="userAvatar"></span>
+                    <span id="userName"></span>
+                </div>
+                <button class="btn btn-danger btn-sm" id="btnLogout">Cerrar Sesión</button>
+            </div>
         </div>
     </nav>
 
     <!-- Contenido Principal -->
-    <div class="container" style="margin-top: 2rem; margin-bottom: 2rem;">
-        <!-- Header -->
-        <h1 style="margin-bottom: 2rem;">Panel de Administrador</h1>
+    <div class="container page-wrapper">
+        <div class="page-header">
+            <h1>⚙️ Panel de Administración</h1>
+            <p>Gestiona libros, usuarios y préstamos del sistema</p>
+        </div>
+
+        <!-- Stats Rápidas -->
+        <div class="stats-grid" id="adminStats">
+            <!-- Se llena dinámicamente -->
+        </div>
 
         <!-- Tabs de Gestión -->
         <div class="tabs">
-            <button class="tab active" data-tab="libros">Gestión de Libros</button>
-            <button class="tab" data-tab="usuarios">Gestión de Usuarios</button>
-            <button class="tab" data-tab="prestamos">Gestión de Préstamos</button>
+            <button class="tab active" data-tab="tabLibros">📚 Libros</button>
+            <button class="tab" data-tab="tabUsuarios">👥 Usuarios</button>
+            <button class="tab" data-tab="tabPrestamos">📋 Préstamos</button>
         </div>
 
-        <!-- Tab: Gestión de Libros -->
-        <div id="libros" class="tab-content" style="display: block;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-                <h3>Inventario de Libros</h3>
-                <button class="btn btn-success">+ Nuevo Libro</button>
-            </div>
-
-            <div class="table-wrapper">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Título</th>
-                            <th>Autor</th>
-                            <th>Categoría</th>
-                            <th>Cantidad</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tablaLibrosAdmin">
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <!-- Tab: Gestión de Usuarios -->
-        <div id="usuarios" class="tab-content" style="display: none;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-                <h3>Gestión de Usuarios</h3>
-                <button class="btn btn-success">+ Nuevo Usuario</button>
-            </div>
-
-            <div class="table-wrapper">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nombre</th>
-                            <th>Correo</th>
-                            <th>Rol</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tablaUsuarios">
-                    </tbody>
-                </table>
+        <!-- ==================== TAB: LIBROS ==================== -->
+        <div id="tabLibros" class="tab-content">
+            <div class="table-card">
+                <div class="table-card-header">
+                    <h3>Inventario de Libros</h3>
+                    <button class="btn btn-success btn-sm" id="btnNuevoLibro">+ Nuevo Libro</button>
+                </div>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Título</th>
+                                <th>Autor</th>
+                                <th>Categoría</th>
+                                <th>Cantidad</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaLibrosAdmin">
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
 
-        <!-- Tab: Gestión de Préstamos -->
-        <div id="prestamos" class="tab-content" style="display: none;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-                <h3>Gestión de Préstamos</h3>
-                <button class="btn btn-success">+ Nuevo Préstamo</button>
+        <!-- ==================== TAB: USUARIOS ==================== -->
+        <div id="tabUsuarios" class="tab-content" style="display: none;">
+            <div class="table-card">
+                <div class="table-card-header">
+                    <h3>Gestión de Usuarios</h3>
+                    <button class="btn btn-success btn-sm" id="btnNuevoAdmin">+ Nuevo Admin</button>
+                </div>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Correo</th>
+                                <th>Rol</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaUsuarios">
+                        </tbody>
+                    </table>
+                </div>
             </div>
+        </div>
 
-            <div class="table-wrapper">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Código</th>
-                            <th>Usuario ID</th>
-                            <th>Libro ID</th>
-                            <th>Fecha Préstamo</th>
-                            <th>Fecha Devolución</th>
-                            <th>Estado</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tablaPrestamosAdmin">
-                    </tbody>
-                </table>
+        <!-- ==================== TAB: PRÉSTAMOS ==================== -->
+        <div id="tabPrestamos" class="tab-content" style="display: none;">
+            <div class="table-card">
+                <div class="table-card-header">
+                    <h3>Gestión de Préstamos</h3>
+                    <button class="btn btn-success btn-sm" id="btnNuevoPrestamo">+ Nuevo Préstamo</button>
+                </div>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Usuario</th>
+                                <th>Libro</th>
+                                <th>Fecha Préstamo</th>
+                                <th>Fecha Devolución</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaPrestamosAdmin">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== MODALES ==================== -->
+
+    <!-- Modal: Libro -->
+    <div class="modal-overlay" id="modalLibro">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="modalLibroTitulo">Nuevo Libro</h3>
+                <button class="modal-close" onclick="cerrarModal('modalLibro')">✕</button>
+            </div>
+            <div class="modal-body">
+                <form id="formLibro">
+                    <input type="hidden" id="libroId">
+                    <div class="form-group">
+                        <label for="libroTitulo">Título</label>
+                        <input type="text" id="libroTitulo" required placeholder="Título del libro">
+                    </div>
+                    <div class="form-group">
+                        <label for="libroAutor">Autor</label>
+                        <input type="text" id="libroAutor" required placeholder="Nombre del autor">
+                    </div>
+                    <div class="form-group">
+                        <label for="libroCategoria">Categoría</label>
+                        <input type="text" id="libroCategoria" placeholder="Ej: Novela, Ciencia, Historia">
+                    </div>
+                    <div class="form-group">
+                        <label for="libroCantidad">Cantidad</label>
+                        <input type="number" id="libroCantidad" required min="1" value="1" placeholder="Cantidad disponible">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-light" onclick="cerrarModal('modalLibro')">Cancelar</button>
+                <button class="btn btn-primary" id="btnGuardarLibro">Guardar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Usuario Admin -->
+    <div class="modal-overlay" id="modalUsuario">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="modalUsuarioTitulo">Nuevo Administrador</h3>
+                <button class="modal-close" onclick="cerrarModal('modalUsuario')">✕</button>
+            </div>
+            <div class="modal-body">
+                <form id="formUsuario">
+                    <input type="hidden" id="usuarioEditId">
+                    <div class="form-group">
+                        <label for="usuarioNombre">Nombre</label>
+                        <input type="text" id="usuarioNombre" required placeholder="Nombre completo">
+                    </div>
+                    <div class="form-group">
+                        <label for="usuarioEmail">Correo</label>
+                        <input type="email" id="usuarioEmail" required placeholder="correo@ejemplo.com">
+                    </div>
+                    <div class="form-group" id="grupoPassword">
+                        <label for="usuarioPassword">Contraseña</label>
+                        <input type="password" id="usuarioPassword" placeholder="Contraseña" minlength="6">
+                    </div>
+                    <div class="form-group" id="grupoRol" style="display:none;">
+                        <label for="usuarioRol">Rol</label>
+                        <select id="usuarioRol">
+                            <option value="usuario">Usuario</option>
+                            <option value="admin">Administrador</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-light" onclick="cerrarModal('modalUsuario')">Cancelar</button>
+                <button class="btn btn-primary" id="btnGuardarUsuario">Guardar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Préstamo -->
+    <div class="modal-overlay" id="modalPrestamo">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Nuevo Préstamo</h3>
+                <button class="modal-close" onclick="cerrarModal('modalPrestamo')">✕</button>
+            </div>
+            <div class="modal-body">
+                <form id="formPrestamo">
+                    <div class="form-group">
+                        <label for="prestamoUsuario">Usuario</label>
+                        <select id="prestamoUsuario" required>
+                            <option value="">Seleccione un usuario</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="prestamoLibro">Libro</label>
+                        <select id="prestamoLibro" required>
+                            <option value="">Seleccione un libro</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="prestamoFecha">Fecha de devolución (opcional)</label>
+                        <input type="date" id="prestamoFecha">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-light" onclick="cerrarModal('modalPrestamo')">Cancelar</button>
+                <button class="btn btn-primary" id="btnGuardarPrestamo">Registrar Préstamo</button>
             </div>
         </div>
     </div>
 
     <!-- Footer -->
     <footer>
-        <p>© 2026 Sistema de Gestión de Biblioteca.</p>
+        <p>© 2026 BiblioGestion — Sistema de Gestión de Biblioteca</p>
     </footer>
 
+    <div id="toastContainer" class="toast-container"></div>
     <script src="js/app.js"></script>
 </body>
 </html>

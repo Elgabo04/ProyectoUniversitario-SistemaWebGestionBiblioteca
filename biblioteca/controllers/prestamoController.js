@@ -1,5 +1,6 @@
 import Prestamo from "../models/Prestamo.js";
 import Usuario from "../models/Usuario.js";
+import Libro from "../models/Libro.js";
 import { Op } from "sequelize";
 
 // Lista todos los prestamos
