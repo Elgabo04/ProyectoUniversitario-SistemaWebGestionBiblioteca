@@ -5,6 +5,7 @@ const router = express.Router();
 
 // Definimos las rutas del CRUD
 router.get('/', libroController.getAllLibros);
+router.get('/get-books', libroController.getAllLibros);
 router.post('/', libroController.createLibro);
 router.put('/:id', libroController.updateLibro);
 router.delete('/:id', libroController.deleteLibro);
