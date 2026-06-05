@@ -1,7 +1,7 @@
-const Libro = require('../models/Libro');
-const { Op } = require('sequelize');
+import Libro from '../models/Libro.js'; // Nota el .js al final
+import { Op } from 'sequelize';
 
-exports.getAllLibros = async (req, res) => {
+export const getAllLibros = async (req, res) => {
     try {
         const { titulo } = req.query;
         let condition = titulo ? { titulo: { [Op.like]: `%${titulo}%` } } : null;
@@ -12,7 +12,7 @@ exports.getAllLibros = async (req, res) => {
     }
 };
 
-exports.createLibro = async (req, res) => {
+export const createLibro = async (req, res) => {
     try {
         const nuevoLibro = await Libro.create(req.body);
         res.status(201).json(nuevoLibro);
@@ -21,7 +21,7 @@ exports.createLibro = async (req, res) => {
     }
 };
 
-exports.updateLibro = async (req, res) => {
+export const updateLibro = async (req, res) => {
     try {
         const [updated] = await Libro.update(req.body, { where: { id: req.params.id } });
         if (updated) res.json({ message: 'Libro actualizado' });
@@ -31,7 +31,7 @@ exports.updateLibro = async (req, res) => {
     }
 };
 
-exports.deleteLibro = async (req, res) => {
+export const deleteLibro = async (req, res) => {
     try {
         const deleted = await Libro.destroy({ where: { id: req.params.id } });
         if (deleted) res.json({ message: 'Libro eliminado' });
