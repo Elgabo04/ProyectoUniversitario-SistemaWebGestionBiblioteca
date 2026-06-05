@@ -16,7 +16,7 @@ GET {{url}}/get-users
 
 ### 3. PROBAR ACTUALIZAR UN USUARIO POR COMPLETO (PUT)
 ### NOTA: Si el ID de tu primer usuario no es 1, cambia el número al final
-PUT {{url}}/update-user/1
+PUT {{url}}/update-user/2
 Content-Type: application/json
 
 {
@@ -26,7 +26,7 @@ Content-Type: application/json
 }
 
 ### 4. PROBAR PARCHAR UN USUARIO (PATCH)
-PATCH {{url}}/patch-user/1
+PATCH {{url}}/patch-user/2
 Content-Type: application/json
 
 {
@@ -34,4 +34,93 @@ Content-Type: application/json
 }
 
 ### 5. PROBAR ELIMINAR UN USUARIO (DELETE)
-DELETE {{url}}/delete-user/1
+DELETE {{url}}/delete-user/2
+
+
+
+### PRUEBAS SANDRA
+### 6. PROBAR REGISTRO DE USUARIO NUEVO (POST) 
+POST http://localhost:3000/api/auth/register
+Content-Type: application/json
+
+{
+  "nombre": "Nuevo Usuario 2",
+  "email": "usuario2@mail.com",
+  "password": "password123"
+}
+
+###
+
+### 7. PROBAR INICIO DE SESIÓN / LOGIN (POST)
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "usuario@mail.com",
+  "password": "password123"
+}
+
+
+### PRUEBAS ANTHONY
+### PROBAR CREAR UN LIBRO (POST)
+POST http://localhost:3000/api/libros/
+Content-Type: application/json
+
+{
+  "titulo": "Cien años de soledad",
+  "autor": "Gabriel García Márquez",
+  "categoria": "Realismo Mágico",
+  "cantidad": 5
+}
+
+### PROBAR OBTENER TODOS LOS LIBROS (GET)
+GET http://localhost:3000/api/libros/
+
+### PROBAR FILTRAR LIBROS POR TÍTULO (GET)
+GET http://localhost:3000/api/libros/?titulo=Cien
+
+### PROBAR OBTENER TODOS LOS LIBROS - RUTA ALTERNATIVA (GET)
+GET http://localhost:3000/api/libros/get-books
+
+### PROBAR ACTUALIZAR UN LIBRO (PUT)
+### NOTA: Si el ID de tu primer libro no es 1, cambia el número al final
+PUT http://localhost:3000/api/libros/6
+Content-Type: application/json
+
+{
+  "titulo": "Cien años de soledad - Edición Especial",
+  "autor": "Gabriel García Márquez",
+  "categoria": "Novela",
+  "cantidad": 10
+}
+
+### PROBAR ELIMINAR UN LIBRO (DELETE)
+DELETE http://localhost:3000/api/libros/6
+
+
+
+
+
+
+###PRUEBAS ALEXANDER
+### PROBAR OBTENER TODOS LOS PRÉSTAMOS (GET)
+GET http://localhost:3000/api/prestamos/get-prestamos
+
+### PROBAR CREAR UN PRÉSTAMO (POST)
+### NOTA: Asegúrate de usar un usuario_id y libro_id que existan en tu BD
+POST http://localhost:3000/api/prestamos/create
+Content-Type: application/json
+
+{
+  "usuario_id": 3,
+  "libro_id": 7,
+  "fecha_devolucion": "2026-06-15"
+}
+
+### PROBAR MARCAR DEVOLUCIÓN DE UN PRÉSTAMO (POST)
+### NOTA: Cambia el ID al final por el de un préstamo activo que quieras devolver
+POST http://localhost:3000/api/prestamos/devolver/1
+
+### PROBAR LISTAR PRÉSTAMOS POR USUARIO (GET)
+### NOTA: Cambia el ID de usuario al final para ver su historial de préstamos
+GET http://localhost:3000/api/prestamos/user/3
